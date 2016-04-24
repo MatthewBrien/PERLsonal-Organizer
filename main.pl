@@ -24,6 +24,8 @@ my $prev_btn;
 my $current_display_month; #one based
 my $current_display_year = 2016;
 
+
+
 #takes the new year[0], month[1]
 sub SwitchMonth($){
     my ($direction) = @_;
@@ -97,21 +99,11 @@ sub DrawWindow{
                           -background=>'black',
                           -activebackground=>'#202020',
                           -foreground=>'white',
-                          -command=>sub{print("Helping...")}
+                          -command=>sub{print "Welcome to your PERLsonal Organizer. \n";
+                                      print "Click on any day in the calendar to view events, or add new events.\n";
+                                        print "To view other months click the < or >  buttons \n";}
                           );
-        $file_mb -> command(-label => 'Import',
-                            -background=>'black',
-                            -activebackground=>'#202020',
-                            -foreground=>'white',
-                            -command=>sub{print("importing...")}
-                            );
 
-       $file_mb -> command(-label => 'New Event',
-                           -background=>'black',
-                           -activebackground=>'#202020',
-                           -foreground=>'white',
-                           -command=>sub{print("importing...")}
-                           );
         $file_mb -> command(-label => 'New Contact',
                           -background=>'black',
                           -activebackground=>'#202020',
