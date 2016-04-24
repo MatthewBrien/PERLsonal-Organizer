@@ -16,6 +16,8 @@ my $calender_canvas; #holds the day grid
 my @day_buttons; #
 my $month_canvas;
 my $month_lbl;
+my $next_btn;
+my $prev_btn;
 
 #draw the main window, menu bars, buttons etc.
 sub draw_window{
@@ -75,7 +77,10 @@ sub draw_window{
 
      my $weekday_canvas = $main_window->Canvas(-width=>550,-height=>10);
         $month_lbl= $weekday_canvas->Label(-text=>$month{'MonthName'}, -font=>[-size=>24]);
-        $month_lbl->grid(-row=>0, -column=>0, -sticky=>'nsew');
+        $month_lbl->grid(-row=>0, -column=>1, -sticky=>'nsew');
+        $prev_btn = $weekday_canvas->Button(-text=>'<')->grid(-row=>0, -column=>0, -sticky=>'nsew');
+        $next_btn = $weekday_canvas->Button(-text=>'>')->grid(-row=>0, -column=>2, -sticky=>'nsew');
+
         for(my $i=0; $i<7; $i++){
           my $label = $weekday_canvas->Label(-text=>DayName($i), -width=>16);
           $label->grid(-row=>1,-column=>$i, -sticky=>'nsew');
