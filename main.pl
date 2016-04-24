@@ -7,7 +7,7 @@ use DateTime;
 use Tk::PNG; #display images in tk
 
 require "month.pl";
-
+require "day_widget.pl";
 
 #main variables
 my $main_window;
@@ -65,6 +65,14 @@ sub SwitchMonth($){
           $countdown--;
         }
       $day_buttons[$i]->configure(-text=>$text);
+      #if no text, remove command else update it
+      if($text eq ''){
+        $day_buttons[$i]->configure(-command=>sub{});
+      }
+      else{
+        $day_buttons[$i]->configure( -command=>sub{
+                                  ShowDay($current_display_year, $current_display_month, $text)});
+      }
       }
       $month_lbl->configure(-text=>$month{'MonthName'});
       #get start of the month and month length
@@ -140,11 +148,11 @@ sub DrawWindow{
         $weekday_canvas->pack();
       #get start of the month and month length
 
-
+      my $button;
       $calender_canvas = $main_window->Canvas(-width=>550, -height=>250);
          for(my $i=0; $i<6; $i++){
             for(my $ii =0; $ii<7; $ii++){
-                my $text = '';
+                my $text='';
                 if($countdown == 0 && $daycounter > 0){
                   $text =  $month{'NumberOfDays'} - $daycounter + 1;
                   $daycounter--;
@@ -152,7 +160,13 @@ sub DrawWindow{
                 else{
                   $countdown--;
                 }
-              my $button = $calender_canvas->Button(-text=>$text);
+                if($text eq ''){
+                  $button = $calender_canvas->Button(-text=>$text);
+                }
+                else{
+                  $button = $calender_canvas->Button(-text=>$text, -command=>sub{
+                                            ShowDay($current_display_year, $current_display_month, $text)});
+                    }
               push(@day_buttons, $button); #set up an array so we can change these later.
               $button->grid(-column=>$ii, -row=>$i, -ipadx => 36, -ipady=>35,-sticky=>'nsew');
             }
