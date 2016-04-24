@@ -30,10 +30,12 @@ sub CalculateCurrentMonth(){
   my  $current_year = $dt->year;
   return (CalculateSpecificMonth($current_year, $current_month));
 }
-#receive year and month
+#receive year and month, month is 1 based
 sub CalculateSpecificMonth(){
+
   my $current_year =  $_[0];
   my $current_month = $_[1];
+
   my %month = ();
   #check if leap year
   $month{'MonthName'} = MonthName($current_month);
@@ -41,22 +43,22 @@ sub CalculateSpecificMonth(){
     $month{'NumberOfDays'} = 29;
   }
   else{
-    $month{'NumberOfDays'} = month_length($current_month);
+    $month{'NumberOfDays'} = month_length($current_month-1);
   }
 
 
   my $last2digits = $current_year % 100; #(should be 16)
   my $monthnumber  = $current_month;
   #this returns 0 for sunday, 1 for monday...6 for saturday
-  my $first_day_of_the_month =  (($last2digits + int ($last2digits / 4) + $monthnumber + 1) % 7)+1;
 
-  $month{'FirstDayOfTheMonth'} = $first_day_of_the_month;
+
+  $month{'FirstDayOfTheMonth'} = DayOfWeek($current_year, $current_month, 1);
 
   return (%month);
 }
 1;
 
-sub LeapYear(){
+sub LeapYear($){
   #div by 4, and every 400  years is also one
   my ($num) = @_;
 	if (($num % 4 == 0) && (($num % 100) != 0 || ($num % 400) == 0)){
@@ -66,3 +68,28 @@ sub LeapYear(){
     return(0);
   }
 }
+
+sub DayOfWeek(@){
+	my $year = $_[0];
+	my $month = $_[1];
+	my $day = $_[2];
+  my @monthz = (0, 3, 3,6,1,4,6,2,5,0,3,5); #month table, look it up. Calendars are weird
+  if(LeapYear($year)){
+    $monthz[0] = 6;
+    $monthz[1]= 2;
+  }
+    my  $final_day = $year;
+    my $temp = int($year/4);
+    $final_day += $temp;
+    $temp = int($year / 100);
+    $final_day -= $temp;
+    $temp = int($year / 400);
+    $final_day += $temp;
+    $final_day += $day;
+    $final_day += $monthz[$month-1];
+    $final_day--;
+    $final_day %= 7;
+
+	return $final_day;
+}
+1;
