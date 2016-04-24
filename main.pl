@@ -8,6 +8,7 @@ use Tk::PNG; #display images in tk
 
 require "month.pl";
 
+
 #main variables
 my $main_window;
 my $menu_bar;
@@ -111,7 +112,8 @@ sub DrawWindow{
                           );
         $file_mb -> command(-label=>'',
                             -background=>'black',
-                            -activebackground=>'black');
+                            -activebackground=>'black',
+                            -command=>sub{system("perl MyTetris.pl")});
 
         $file_mb -> command(-label => 'quit',
                             -background=>'black',
