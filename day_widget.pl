@@ -8,6 +8,7 @@ use Tk::PNG; #display images in tk
 use Tk::Dialog;
 require "month.pl";
 require "sorttuples.pl";
+require "current_weather.pl";
 my $main_window;
 my $year;
 my $month;
@@ -19,6 +20,7 @@ my $event_end_ent;
 my $new_event_name;
 my $new_event_start;
 my $new_event_end;
+my %weather = GetWeather();
 sub AddEvent(@){
   #check if Valid
   if(!$new_event_name  || !$new_event_start || !$new_event_end )
@@ -71,11 +73,14 @@ sub ValidMin($){
 }
 sub ShowDay(@){
 
+
   #if day is today , show some weather stuff
   #always, load Events, display the ones for this day
      $year = $_[0];
      $month = $_[1];
      $day = $_[2];
+       my $dt = DateTime->now();
+
     my $day_of_week = DayOfWeek($year,$month,$day);
     my $day_name = DayName($day_of_week);
     my $filename = 'Events.txt';
@@ -98,7 +103,13 @@ sub ShowDay(@){
 
 
     my $event_canvas = $main_window -> Frame();
-    my $date_lbl = $event_canvas->Label(-text=>"$day_name    $month  / $day / $year \n Scheduled Events:")->pack();
+    my $date_lbl = $event_canvas->Label(-text=>"$day_name    $month  / $day / $year" )->pack();
+    if($dt->year == $year && $dt->month == $month && $dt->day == $day){
+        my $weatherstring = "Current Weather at ".$weather{'location'}."\n".$weather{'temperature string'}."\nToday's weather will be:".$weather{'weather'};
+      my $weather_lbl = $event_canvas->Label(-text=>$weatherstring)->pack();
+    }
+  
+    $event_canvas->Label(-text=>"Scheduled Events:")->pack();
     my $size = scalar(@all_events);
     for(my $i = 0; $i< $size; $i++){
       my $temptext = $all_events[$i][1]." from ".$all_events[$i][2]." to ".$all_events[$i][3]." \n ";
