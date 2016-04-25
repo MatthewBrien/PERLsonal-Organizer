@@ -8,12 +8,13 @@ use Tk::PNG; #display images in tk
 
 require "month.pl";
 require "day_widget.pl";
+#require "address_book.pl";
 
 #main variables
 my $main_window;
 my $menu_bar;
 my $file_mb;
-my $calender_canvas; #holds the day grid
+my $calendar_canvas; #holds the day grid
 my @day_buttons; #
 my $month_canvas; #canvas holding all day buttons
 my $month_lbl; #label showing the current month
@@ -141,7 +142,7 @@ sub DrawWindow{
       #get start of the month and month length
 
       my $button;
-      $calender_canvas = $main_window->Canvas(-width=>550, -height=>250);
+      $calendar_canvas = $main_window->Canvas(-width=>550, -height=>250);
          for(my $i=0; $i<6; $i++){
             for(my $ii =0; $ii<7; $ii++){
                 my $text='';
@@ -153,17 +154,17 @@ sub DrawWindow{
                   $countdown--;
                 }
                 if($text eq ''){
-                  $button = $calender_canvas->Button(-text=>$text);
+                  $button = $calendar_canvas->Button(-text=>$text);
                 }
                 else{
-                  $button = $calender_canvas->Button(-text=>$text, -command=>sub{
+                  $button = $calendar_canvas->Button(-text=>$text, -command=>sub{
                                             ShowDay($current_display_year, $current_display_month, $text)});
                     }
               push(@day_buttons, $button); #set up an array so we can change these later.
               $button->grid(-column=>$ii, -row=>$i, -ipadx => 36, -ipady=>35,-sticky=>'nsew');
             }
         }
-        $calender_canvas->pack();
+        $calendar_canvas->pack();
       }
 DrawWindow;
 my $dt = DateTime -> now();
