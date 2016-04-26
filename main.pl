@@ -105,11 +105,11 @@ sub DrawWindow{
                                         print "To view other months click the < or >  buttons \n";}
                           );
 
-        $file_mb -> command(-label => 'New Contact',
+        $file_mb -> command(-label => 'Contacts',
                           -background=>'black',
                           -activebackground=>'#202020',
                           -foreground=>'white',
-                          -command=>sub{print("importing...")}
+                          -command=>sub{system("perl address_book.pl")}
                           );
         $file_mb -> command(-label=>'',
                             -background=>'black',
