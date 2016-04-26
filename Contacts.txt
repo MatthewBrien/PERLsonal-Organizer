@@ -99,3 +99,4 @@ Lori,Sullivan,Senior Sales Associate,06 Golf View Terrace,Portland,Maine,28066,l
 Stephanie,Sullivan,Occupational Therapist,0 Tomscot Hill,Tacoma,Washington,86496,ssullivan2r@bluehost.com,1-(253)166-2352,1-(714)484-5789
 Matthew,Brien,Lord,0 Tomscot Hill,Fakecity,Fake Carolina,1258,(147)123-1456,(785)785-7852,dude@AOL.com
 Steve,Winslow,Beermeister,0 Tomscot Hill,Berlin,Berlin,785,9-89-623-9655,99-89-623-9655,DudeMeister@German.com
+Bill ,Wingat,Wingman,123 Wingvin ave,NEw York,New York,456,159-852-9632,458-963-8745,man@wing.com
