@@ -3,6 +3,7 @@ use warnings;
 use strict;
 sub SortTuples(@){
   #sorry for the bubble sort
+  #sorting events on a given day, shouldn't be too many....
   my $size = scalar(@_);
   #print "Unsorted \n";
   #for(my $i=0;$i<$size;$i++){
@@ -24,5 +25,9 @@ sub SortTuples(@){
   #}
 
   return(@_);
+}
+
+sub LastName(@){
+		return $_[0][1];
 }
 1;
