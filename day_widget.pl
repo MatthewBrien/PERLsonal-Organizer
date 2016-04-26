@@ -88,6 +88,7 @@ sub ShowDay(@){
     my $day_name = DayName($day_of_week);
     my $filename = 'Events.txt';
     my @day_events;
+    @allevents=();
     open(my $EventFile, "<", $filename);
     while(<$EventFile>) {
         chomp;
@@ -141,7 +142,8 @@ sub ShowDay(@){
           $list_box->insert('end', $temptext);
         }
         #remove deleted event from @allevents
-
+        my $length = scalar(@allevents);
+        print("allevents is not $length\n");
         for(my $i =0; $i < scalar(@allevents); $i++){
           if ($allevents[$i][0] eq $year && $allevents[$i][1] eq $month && $allevents[$i][2] eq $day && $allevents[$i][3] eq $deleted_event[0][0] && $allevents[$i][4] eq $deleted_event[0][1] && $allevents[$i][5] eq $deleted_event[0][2]){
             print "Found matching\n";
@@ -154,7 +156,6 @@ sub ShowDay(@){
           system("del Events.txt");
           open(SESAME, '>>Events.txt');
           for(my $i = 0; $i < scalar(@allevents); $i++){
-
             for(my $ii = 0; $ii < 6; $ii++){
                 print SESAME "$allevents[$i][$ii],";
             }

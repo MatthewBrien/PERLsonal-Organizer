@@ -173,5 +173,4 @@ $current_display_year = $dt->year;
 $current_display_month = $dt->month;
 
 MainLoop{
-
 }
