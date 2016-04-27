@@ -142,8 +142,6 @@ sub ShowDay(@){
           $list_box->insert('end', $temptext);
         }
         #remove deleted event from @allevents
-        my $length = scalar(@allevents);
-        print("allevents is not $length\n");
         for(my $i =0; $i < scalar(@allevents); $i++){
           if ($allevents[$i][0] eq $year && $allevents[$i][1] eq $month && $allevents[$i][2] eq $day && $allevents[$i][3] eq $deleted_event[0][0] && $allevents[$i][4] eq $deleted_event[0][1] && $allevents[$i][5] eq $deleted_event[0][2]){
             print "Found matching\n";
@@ -151,7 +149,6 @@ sub ShowDay(@){
             last;
           }
         }
-
           #delete file, save all contacts back to file, probably a better way to do that.
           system("del Events.txt");
           open(SESAME, '>>Events.txt');
@@ -162,10 +159,7 @@ sub ShowDay(@){
               print SESAME "\n";
           }
             close SESAME;
-
     })->grid(-row=>0, -column=>2, -sticky=>'nsew');
     $button_canvas->pack(-side=>'bottom', -fill=>'x', -pady=>10, -padx=>10);
   }
-
-
 1;
